@@ -36,8 +36,12 @@ int main (void) {
 	int bmax = 14;
 	int sum = 0;
 	int id = 0;
+	int p2s = 0;
 	while (fgets(line, MAX_SIZE, fptr)) {
 		int flag = 1;
+		int p2r = 0;
+		int p2g = 0;
+		int p2b = 0;
 		id++;
 		printf("%s\n", line);
 		while (line[0] != ':') { // 58 = ":"
@@ -77,6 +81,9 @@ int main (void) {
 				} else printf("oh shit oh god oh fuck\n");
 				switch (wordChecker(line, i)) {
 					case 1:
+						if (numComp > p2r) {
+							p2r = numComp;
+						}
 						if (numComp > rmax) {
 							//invalid game, throw the whole game out
 							printf("Invalid game%s", line);
@@ -84,6 +91,9 @@ int main (void) {
 						}
 						break;
 					case 2:
+						if (numComp > p2b) {
+							p2b = numComp;
+						}
 						if (numComp > bmax) {
 							//invalid game, throw the whole game out
 							printf("Invalid game: %s", line);
@@ -91,6 +101,9 @@ int main (void) {
 						}
 						break;
 					case 3:
+						if (numComp > p2g) {
+							p2g = numComp;
+						}
 						if (numComp > gmax) {
 							//invalid game, throw the whole game out
 							printf("Invalid game: %s", line);
@@ -126,13 +139,16 @@ int main (void) {
 		} else {
 			printf("Game %d: failed\n", id);
 		}
+		p2s += p2r * p2b * p2g;
+		printf("part 2 sum: %d, %d, %d", p2r, p2b, p2g);
 		printf("\n%s", line);
 		printf("\n\n");
 		for (int i = 0; i < MAX_SIZE; i++) {
 			line[i] = 0;
 		}
 	}
-	printf("%d", sum);
+	printf("%d\n", sum);
+	printf("part 2: %d\n", p2s);
 
 	return 0;
 }
